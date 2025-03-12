@@ -1,10 +1,8 @@
 '''
-Script realizado por Andrés David Chavarría Palma.
+Script hecho por Andrés David Chavarría Palma.
 https://mastodon.cr/deck/@tunkuluchu
-10 de Marzo del 2025.
+Creado el 10 de Marzo del 2025.
 '''
-
-from datetime import datetime
 import requests
 
 #------------ CONFIG
@@ -28,7 +26,7 @@ imagen = {
     'file': ('goes_tiempoac',open("imagen.jpg", "rb"),'image/jpg'),
 }
 imagen_params= {
-    'description': 'Animación de imágenes satelitales que ilustran las condiciones atmosféricas y el porcentaje de nubosidad sobre el territorio de América Central.'
+    'description': 'Imagen satelital que ilustra las condiciones atmosféricas y el porcentaje de nubosidad sobre el territorio de América Central.'
 }
 
 req = requests.request('POST',api_imagen,headers=encabezados,files=imagen, data=imagen_params)
@@ -36,7 +34,7 @@ id_imagen = req.json()['id']
 
 #Fase Toot
 toot = {
-    'status': '-Publicación automática-\n\nCondiciones atmosféricas actuales en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES #NOAA',
+    'status': '-Publicación automática-\n\nCondiciones atmosféricas actuales en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES16 #NOAA',
     'media_ids[]': [id_imagen]
 }
 
