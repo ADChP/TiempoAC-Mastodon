@@ -1,6 +1,6 @@
 '''
 Script hecho por Andrés David Chavarría Palma.
-https://mastodon.cr/deck/@tunkuluchu
+https://mastodon.cr/@tunkuluchu
 Creado el 11 de Marzo del 2025.
 '''
 
