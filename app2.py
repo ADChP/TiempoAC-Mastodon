@@ -3,12 +3,14 @@ Script hecho por Andrés David Chavarría Palma.
 https://mastodon.cr/@tunkuluchu
 Creado el 11 de Marzo del 2025.
 '''
-
+import logging
 from PIL import Image, ImageSequence
 import requests
 import time
 
 #------------ CONFIG ------------------
+logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.DEBUG,
+                    format='%(asctime)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
 imagen = 'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/cam/GEOCOLOR/GOES16-CAM-GEOCOLOR-1000x1000.gif'
 
 api_text = 'https://mastodon.cr/api/v1/statuses'
@@ -20,13 +22,13 @@ encabezados = {
 
 #------------ TRATAMIENTO IMAGEN ------
 #Descarga
-print('Descargando imagen.')
+logging.info('/ INICIO / Descargando imagen.')
 with open('imagen.gif', 'wb') as f:
     f.write(requests.get(imagen).content)
-print('Imagen descargada.')
+logging.info('Imagen descargada.')
 
 #Redimensionar imagen
-print('Redimensionando imagen.')
+logging.info('Redimensionando imagen.')
 size = 500, 500
 im = Image.open("imagen.gif")
 frames = ImageSequence.Iterator(im)
@@ -41,11 +43,11 @@ frames = thumbnails(frames)
 om = next(frames)
 om.info = im.info
 om.save("animacion.gif", save_all=True, append_images=list(frames))
-print('Imagen redimensionada.')
+logging.info('Imagen redimensionada.')
 
 #------------ API MASTODON --------
 #Fase Imagen
-print('Publicando media.')
+logging.info('Publicando media.')
 imagen = {
     'file': ('goes_tiempoac',open("animacion.gif", "rb"),'image/gif'),
 }
@@ -61,38 +63,36 @@ if req.status_code == 200:
     id_imagen = req.json()['id']
     toot = {
         'status': '-Publicación automática-\n\nCondiciones atmosféricas actuales en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES #NOAA',
-        'media_ids[]': [id_imagen],
-        'visibility': 'direct'
+        'media_ids[]': [id_imagen]
     }
     
     req = requests.request('POST',api_text,data=toot,headers=encabezados)
-    print(req)
-    print('Publicado.')
+    logging.info(req)
+    logging.info('/ FIN / Publicado.')
 
 elif req.status_code == 202:
     id_imagen = req.json()['id']
     sitio = 'https://mastodon.cr/api/v1/media/' + id_imagen
 
     while req.status_code in (202,206):
-        print(req)
+        logging.info(req)
         time.sleep(60)
         req = requests.request('GET',sitio,headers=encabezados)
     
     if req.status_code == 200:
         toot = {
         'status': '-Publicación automática-\n\nCondiciones atmosféricas actuales en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES16 #NOAA',
-        'media_ids[]': [id_imagen],
-        'visibility': 'direct'
+        'media_ids[]': [id_imagen]
         }
         
         req = requests.request('POST',api_text,data=toot,headers=encabezados)
-        print(req)
-        print('Publicado.')
+        logging.info(req)
+        logging.info('/ FIN / Publicado.')
     
     else:
-        print('Problema en el procesamiento.')
-        print(req.json())
+        logging.info('/ FIN / Problema en el procesamiento.')
+        logging.info(req.json())
 
 else:
-    print('Problema en la subida.')
-    print(req.json())
+    logging.info('/ FIN / Problema en la subida.')
+    logging.info(req.json())
