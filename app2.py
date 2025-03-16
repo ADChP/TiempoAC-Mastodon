@@ -9,7 +9,7 @@ import requests
 import time
 
 #------------ CONFIG ------------------
-logging.basicConfig(filename='example.log', encoding='utf-8', level=logging.DEBUG,
+logging.basicConfig(filename='log_app2.log', encoding='utf-8', level=logging.DEBUG,
                     format='%(asctime)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
 imagen = 'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/cam/GEOCOLOR/GOES16-CAM-GEOCOLOR-1000x1000.gif'
 
