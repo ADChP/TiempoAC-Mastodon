@@ -45,7 +45,7 @@ imagen = {
     'file': ('goes_tiempoac',open("animacion.gif", "rb"),'image/gif'),
 }
 imagen_params= {
-    'description': 'Animación de imágenes satelitales que ilustran las condiciones atmosféricas y el porcentaje de nubosidad sobre el territorio de América Central.'
+    'description': 'Animación de imágenes satelitales que ilustran las condiciones atmosféricas sobre el territorio de América Central.'
 }
 
 req = requests.request('POST',api_imagen,headers=encabezados,files=imagen, data=imagen_params)
@@ -55,7 +55,7 @@ req = requests.request('POST',api_imagen,headers=encabezados,files=imagen, data=
 if req.status_code == 200:
     id_imagen = req.json()['id']
     toot = {
-        'status': '-* Publicación automática *-\n\nCondiciones atmosféricas actuales en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES #NOAA',
+        'status': '-* Publicación automática *-\n\nCondiciones atmosféricas en las últimas 8 horas en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES #NOAA',
         'media_ids[]': [id_imagen]
     }
     
@@ -74,7 +74,7 @@ elif req.status_code == 202:
     
     if req.status_code == 200:
         toot = {
-        'status': '-* Publicación automática *-\n\nCondiciones atmosféricas actuales en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES16 #NOAA',
+        'status': '-* Publicación automática *-\n\nCondiciones atmosféricas en las últimas 8 horas en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES16 #NOAA',
         'media_ids[]': [id_imagen]
         }
         

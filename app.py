@@ -26,7 +26,7 @@ imagen = {
     'file': ('goes_tiempoac',open("imagen.jpg", "rb"),'image/jpg'),
 }
 imagen_params= {
-    'description': 'Animación de imágenes satelitales que ilustran las condiciones atmosféricas y el porcentaje de nubosidad sobre el territorio de América Central.'
+    'description': 'Imagen satelital que ilustra las condiciones atmosféricas sobre el territorio de América Central.'
 }
 
 req = requests.request('POST',api_imagen,headers=encabezados,files=imagen, data=imagen_params)
