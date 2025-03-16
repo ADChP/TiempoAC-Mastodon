@@ -1,8 +1,3 @@
-'''
-Script hecho por Andrés David Chavarría Palma.
-https://mastodon.cr/@tunkuluchu
-Creado el 10 de Marzo del 2025.
-'''
 import logging
 import requests
 import time
@@ -11,8 +6,8 @@ import time
 logging.basicConfig(filename='log_app.log', encoding='utf-8', level=logging.DEBUG,
                     format='%(asctime)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
 imagen = 'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/cam/GEOCOLOR/1000x1000.jpg'
-api_text = 'https://mastodon.cr/api/v1/statuses'
-api_imagen = 'https://mastodon.cr/api/v2/media'
+api_text = 'https://bots.fedi.cr/api/v1/statuses'
+api_imagen = 'https://bots.fedi.cr/api/v2/media'
 encabezados = {
     'Authorization': 'Bearer ' + 'TOKEN_AQUÍ'
 }
@@ -41,7 +36,7 @@ req = requests.request('POST',api_imagen,headers=encabezados,files=imagen, data=
 if req.status_code == 200:
     id_imagen = req.json()['id']
     toot = {
-        'status': '-Publicación automática-\n\nCondiciones atmosféricas actuales en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES #NOAA',
+        'status': '-* Publicación automática *-\n\nCondiciones atmosféricas actuales en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES #NOAA',
         'media_ids[]': [id_imagen]
     }
     
@@ -51,7 +46,7 @@ if req.status_code == 200:
 
 elif req.status_code == 202:
     id_imagen = req.json()['id']
-    sitio = 'https://mastodon.cr/api/v1/media/' + id_imagen
+    sitio = 'https://bots.fedi.cr/api/v1/media/' + id_imagen
 
     while req.status_code in (202,206):
         logging.info(req)
@@ -60,7 +55,7 @@ elif req.status_code == 202:
     
     if req.status_code == 200:
         toot = {
-        'status': '-Publicación automática-\n\nCondiciones atmosféricas actuales en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES16 #NOAA',
+        'status': '-* Publicación automática *-\n\nCondiciones atmosféricas actuales en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES16 #NOAA',
         'media_ids[]': [id_imagen]
         }
         
