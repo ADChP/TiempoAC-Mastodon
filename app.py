@@ -10,7 +10,7 @@ import time
 #------------ CONFIG ------------------
 logging.basicConfig(filename='log_app.log', encoding='utf-8', level=logging.DEBUG,
                     format='%(asctime)s - %(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
-imagen = 'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/cam/GEOCOLOR/2000x2000.jpg'
+imagen = 'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/cam/GEOCOLOR/1000x1000.jpg'
 api_text = 'https://mastodon.cr/api/v1/statuses'
 api_imagen = 'https://mastodon.cr/api/v2/media'
 encabezados = {
