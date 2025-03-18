@@ -55,7 +55,7 @@ req = requests.request('POST',api_imagen,headers=encabezados,files=imagen, data=
 if req.status_code == 200:
     id_imagen = req.json()['id']
     toot = {
-        'status': '-* Publicación automática *-\n\nCondiciones atmosféricas en las últimas 8 horas en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES #NOAA',
+        'status': '-* Publicación automática *-\n\nCondiciones atmosféricas en las últimas 8 horas en #AméricaCentral.\n\nFuente: National Oceanic and Atmospheric Administration.\n\n#GOES16 #NOAA',
         'media_ids[]': [id_imagen]
     }
     
