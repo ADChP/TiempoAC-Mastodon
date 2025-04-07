@@ -21,6 +21,7 @@ with open('imagen.gif', 'wb') as f:
 logging.info('Imagen descargada.')
 
 #Redimensionar imagen
+#Créditos a Fabien Batteix (skywodd - https://gist.github.com/skywodd/8b68bd9c7af048afcedcea3fb1807966)
 logging.info('Redimensionando imagen.')
 size = 500, 500
 im = Image.open("imagen.gif")
